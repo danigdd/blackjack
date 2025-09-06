@@ -1,5 +1,7 @@
+.card-deck-computer {
+    margin-top: 150px;
+}
 .card-deck-computer img {
-    width: auto;
-    height: auto;
-    object-fit: cover;
+    width: 125px;
+    height: 175px;
 }

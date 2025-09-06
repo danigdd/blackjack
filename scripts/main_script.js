@@ -20,6 +20,8 @@ function getCardFile(card_name) {
 
 function displayCard(card_to_display, is_card_hidden, target_card_position) {
     if (is_card_hidden) {
+        const card_position_to_display = document.getElementById(target_card_position);
+        card_position_to_display.src = "resources/cards/red_back.png";
         return;
     } else {
         const card_position_to_display = document.getElementById(target_card_position);
@@ -28,10 +30,19 @@ function displayCard(card_to_display, is_card_hidden, target_card_position) {
     }
 }
 
-function setUpGame() {
+function setUpComputerDeck() {
     let first_computer_card = chooseCard();
     let first_computer_card_file = getCardFile(first_computer_card);
-    displayCard(first_computer_card_file, false, "first-card-computer");
+    displayCard(first_computer_card_file, true, "first-card-computer");
+
+    let second_computer_card = chooseCard();
+    let second_computer_card_file = getCardFile(second_computer_card);
+    displayCard(second_computer_card_file, false, "second-card-computer");
+    return;
+}
+
+function setUpGame() {
+    setUpComputerDeck();
 }
 
 setUpGame();
