@@ -6,3 +6,32 @@ const list_of_cards = [
   "AC","2C","3C","4C","5C","6C","7C","8C","9C","10C","JC","QC","KC",
   "AS","2S","3S","4S","5S","6S","7S","8S","9S","10S","JS","QS","KS"
 ];
+
+function chooseCard() {
+    let card_chosen = list_of_cards[ Math.floor( Math.random() * list_of_cards.length ) ];
+    console.log(card_chosen);
+    return card_chosen;
+}
+
+function getCardFile(card_name) {
+    let card_file_name = "resources/cards/" + card_name + ".png";
+    return card_file_name
+}
+
+function displayCard(card_to_display, is_card_hidden, target_card_position) {
+    if (is_card_hidden) {
+        return;
+    } else {
+        const card_position_to_display = document.getElementById(target_card_position);
+        card_position_to_display.src = card_to_display;
+        return;
+    }
+}
+
+function setUpGame() {
+    let first_computer_card = chooseCard();
+    let first_computer_card_file = getCardFile(first_computer_card);
+    displayCard(first_computer_card_file, false, "first-card-computer");
+}
+
+setUpGame();
