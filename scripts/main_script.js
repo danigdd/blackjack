@@ -1,4 +1,6 @@
 'use strict'
+let computer_score = 0;
+let user_score = 0;
 
 const list_of_cards = [
   "AH","2H","3H","4H","5H","6H","7H","8H","9H","10H","JH","QH","KH",
@@ -30,19 +32,41 @@ function displayCard(card_to_display, is_card_hidden, target_card_position) {
     }
 }
 
+function updateScore(card_to_update, dest) {
+    console.log(card_to_update);
+    switch (dest) {
+        case "computer":
+            computer_score += +card_to_update;
+            break;
+        
+        case "user":
+            user_score += +card_to_update;
+            break;
+        
+            default:
+                break;
+    }
+
+    return;
+}
+
 function setUpComputerDeck() {
     let first_computer_card = chooseCard();
     let first_computer_card_file = getCardFile(first_computer_card);
     displayCard(first_computer_card_file, true, "first-card-computer");
+    updateScore(first_computer_card.charAt(0), "computer");
 
     let second_computer_card = chooseCard();
     let second_computer_card_file = getCardFile(second_computer_card);
     displayCard(second_computer_card_file, false, "second-card-computer");
+    updateScore(second_computer_card.charAt(0), "computer");
     return;
 }
 
 function setUpGame() {
     setUpComputerDeck();
+    console.log(user_score);
+    console.log(computer_score);
 }
 
 setUpGame();
