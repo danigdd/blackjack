@@ -33,14 +33,19 @@ function displayCard(card_to_display, is_card_hidden, target_card_position) {
 }
 
 function updateScore(card_to_update, dest) {
-    console.log(card_to_update);
+    let value = 0;
+    if (card_to_update.length == 3) value = card_to_update.substring(0, 2);
+    else value = card_to_update.charAt(0);
+
+    if (card_to_update.charAt(0) == "A") value = 1;
+    else if (card_to_update.charAt(0) == "J" || card_to_update.charAt(0) == "Q" || card_to_update.charAt(0) == "K") value = 10;
     switch (dest) {
         case "computer":
-            computer_score += +card_to_update;
+            computer_score += +value;
             break;
         
         case "user":
-            user_score += +card_to_update;
+            user_score += +value;
             break;
         
             default:
@@ -54,12 +59,12 @@ function setUpComputerDeck() {
     let first_computer_card = chooseCard();
     let first_computer_card_file = getCardFile(first_computer_card);
     displayCard(first_computer_card_file, true, "first-card-computer");
-    updateScore(first_computer_card.charAt(0), "computer");
+    updateScore(first_computer_card, "computer");
 
     let second_computer_card = chooseCard();
     let second_computer_card_file = getCardFile(second_computer_card);
     displayCard(second_computer_card_file, false, "second-card-computer");
-    updateScore(second_computer_card.charAt(0), "computer");
+    updateScore(second_computer_card, "computer");
     return;
 }
 
