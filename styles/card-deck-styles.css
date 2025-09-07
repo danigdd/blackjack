@@ -1,7 +1,28 @@
+.cards-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+}
+
+
+.cards-wrap p {
+    font-size: 40px;
+}
 .card-deck-computer {
-    margin-top: 150px;
+    margin-top: 50px;
 }
 .card-deck-computer img {
     width: 125px;
     height: 175px;
+}
+
+.computer-stats-wrap {
+    margin-top: 30px;
+}
+
+.computer-stats-wrap p {
+    font-size: 20px;
+    text-align: center;
 }
