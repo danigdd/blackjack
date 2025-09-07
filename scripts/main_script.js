@@ -32,27 +32,33 @@ function displayCard(card_to_display, is_card_hidden, target_card_position) {
     }
 }
 
-function updateScore(card_to_update, dest) {
-    let value = 0;
-    if (card_to_update.length == 3) value = card_to_update.substring(0, 2);
-    else value = card_to_update.charAt(0);
-
-    if (card_to_update.charAt(0) == "A") value = 1;
-    else if (card_to_update.charAt(0) == "J" || card_to_update.charAt(0) == "Q" || card_to_update.charAt(0) == "K") value = 10;
+function updateScore(card, dest) {
+    let value_of_card = getValueFromCard(card);
     switch (dest) {
         case "computer":
-            computer_score += +value;
+            computer_score += +value_of_card;
             break;
         
         case "user":
-            user_score += +value;
+            user_score += +value_of_card;
             break;
         
             default:
                 break;
     }
-
+    
     return;
+}
+
+function getValueFromCard(card) {
+    let value = 0;
+    if (card.length == 3) value = card.substring(0, 2);
+    else value = card.charAt(0);
+
+    if (card.charAt(0) == "A") value = 1;
+    else if (card.charAt(0) == "J" || card.charAt(0) == "Q" || card.charAt(0) == "K") value = 10;
+
+    return value;
 }
 
 function setUpComputerDeck() {
@@ -65,6 +71,11 @@ function setUpComputerDeck() {
     let second_computer_card_file = getCardFile(second_computer_card);
     displayCard(second_computer_card_file, false, "second-card-computer");
     updateScore(second_computer_card, "computer");
+
+    /*Score of just the second card*/
+    const computer_score_tag = document.getElementById("computer-score");
+    let score_second_computer_card = getValueFromCard(second_computer_card);
+    computer_score_tag.textContent = score_second_computer_card;
     return;
 }
 
