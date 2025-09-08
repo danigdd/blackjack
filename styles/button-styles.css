@@ -1,0 +1,24 @@
+.user-options-wrap {
+    display: flex;
+    flex-direction: row;
+    width: 30%;
+    height: 75px;
+    margin-top: 30px;
+    justify-content: center;
+    gap: 40px;
+}
+
+.options-button {
+    flex: 1;
+    background-color: #7d2329;
+    border: none;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-size: 20px;
+}
+
+.options-button:hover {
+    background-color: rgba(125, 35, 41, 0.8);
+    transition: 0.2s;
+    cursor: pointer;
+}
