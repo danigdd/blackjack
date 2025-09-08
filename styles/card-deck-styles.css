@@ -24,5 +24,14 @@
 
 .computer-stats-wrap p {
     font-size: 20px;
-    text-align: center;
+
+}
+
+.user-stats-wrap {
+    margin-top: 30px;
+}
+
+.user-stats-wrap p {
+    font-size: 20px;
+
 }
