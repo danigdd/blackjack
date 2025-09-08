@@ -79,10 +79,29 @@ function setUpComputerDeck() {
     return;
 }
 
+function setUpUserDeck() {
+    let first_user_card = chooseCard();
+    let first_user_card_file = getCardFile(first_user_card);
+    displayCard(first_user_card_file, false, "first-card-user");
+    updateScore(first_user_card, "user");
+
+    let second_user_card = chooseCard();
+    let second_user_card_file = getCardFile(second_user_card);
+    displayCard(second_user_card_file, false, "second-card-user");
+    updateScore(second_user_card, "user");
+
+    /*Total score*/
+    const user_score_tag = document.getElementById("user-score");
+    user_score_tag.textContent = user_score;
+    return;
+
+}
+
 function setUpGame() {
     setUpComputerDeck();
     console.log(user_score);
     console.log(computer_score);
+    setUpUserDeck();
 }
 
 setUpGame();
