@@ -10,9 +10,15 @@ const list_of_cards = [
   "AS","2S","3S","4S","5S","6S","7S","8S","9S","10S","JS","QS","KS"
 ];
 
+let already_seen_cards = [];
+
 function chooseCard() {
-    let card_chosen = list_of_cards[ Math.floor( Math.random() * list_of_cards.length ) ];
-    console.log(card_chosen);
+    let card_chosen;
+    do {
+        card_chosen = list_of_cards[ Math.floor( Math.random() * list_of_cards.length ) ];
+    } while ( already_seen_cards.includes(card_chosen) );
+    
+    already_seen_cards.push(card_chosen);
     return card_chosen;
 }
 
@@ -114,7 +120,7 @@ function hitCard() {
         updateScore(additionalCard, "user");
         const user_score_tag = document.getElementById('user-score');
         user_score_tag.textContent = user_score;
-        
+
         number_of_hits++;
     });
     return;
