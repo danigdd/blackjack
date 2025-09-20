@@ -1,6 +1,7 @@
 'use strict'
 let computer_score = 0;
 let user_score = 0;
+let number_of_hits = 0;
 
 const list_of_cards = [
   "AH","2H","3H","4H","5H","6H","7H","8H","9H","10H","JH","QH","KH",
@@ -99,13 +100,19 @@ function setUpUserDeck() {
 
 function hitCard() {
     const hitButton = document.getElementById('hit-button');
+
     hitButton.addEventListener("click", () => {
+        const newCardDiv = document.createElement("img");
+        newCardDiv.id = "hit-card" + number_of_hits;
+        const newCardDivDestionation = document.querySelector(".cards-wrap-user .card-deck");
+        newCardDivDestionation.appendChild(newCardDiv)
         let additionalCard = chooseCard();
         let additionalCard_file = getCardFile(additionalCard);
-        displayCard(additionalCard_file, false, "third-card-user");
+        displayCard(additionalCard_file, false, "hit-card" + number_of_hits);
         updateScore(additionalCard, "user");
         const user_score_tag = document.getElementById('user-score');
         user_score_tag.textContent = user_score;
+        number_of_hits++;
     });
     return;
 }
