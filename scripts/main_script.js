@@ -97,11 +97,25 @@ function setUpUserDeck() {
 
 }
 
+function hitCard() {
+    const hitButton = document.getElementById('hit-button');
+    hitButton.addEventListener("click", () => {
+        let additionalCard = chooseCard();
+        let additionalCard_file = getCardFile(additionalCard);
+        displayCard(additionalCard_file, false, "third-card-user");
+        updateScore(additionalCard, "user");
+        const user_score_tag = document.getElementById('user-score');
+        user_score_tag.textContent = user_score;
+    });
+    return;
+}
+
 function setUpGame() {
     setUpComputerDeck();
     console.log(user_score);
     console.log(computer_score);
     setUpUserDeck();
+    hitCard();
 }
 
 setUpGame();
