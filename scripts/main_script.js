@@ -104,14 +104,17 @@ function hitCard() {
     hitButton.addEventListener("click", () => {
         const newCardDiv = document.createElement("img");
         newCardDiv.id = "hit-card" + number_of_hits;
-        const newCardDivDestionation = document.querySelector(".cards-wrap-user .card-deck");
-        newCardDivDestionation.appendChild(newCardDiv)
+        const newCardDivDestination = document.querySelector(".cards-wrap-user .card-deck");
+        newCardDivDestination.appendChild(newCardDiv)
+
         let additionalCard = chooseCard();
         let additionalCard_file = getCardFile(additionalCard);
         displayCard(additionalCard_file, false, "hit-card" + number_of_hits);
+
         updateScore(additionalCard, "user");
         const user_score_tag = document.getElementById('user-score');
         user_score_tag.textContent = user_score;
+        
         number_of_hits++;
     });
     return;
