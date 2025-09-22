@@ -2,6 +2,7 @@
 let computer_score = 0;
 let user_score = 0;
 let number_of_hits = 0;
+let winner = "";
 
 const list_of_cards = [
   "AH","2H","3H","4H","5H","6H","7H","8H","9H","10H","JH","QH","KH",
@@ -104,7 +105,7 @@ function setUpUserDeck() {
 
 }
 
-function hitCard() {
+function hitButton() {
     const hitButton = document.getElementById('hit-button');
 
     hitButton.addEventListener("click", () => {
@@ -122,16 +123,66 @@ function hitCard() {
         user_score_tag.textContent = user_score;
 
         number_of_hits++;
+        if ( checkWinner() ) announceWinner();
     });
     return;
 }
 
+function standButton() {
+    const standButton = document.getElementById("stand-button");
+    standButton.addEventListener("click", () => {
+
+    });
+}
+
+function checkWinner() {
+    let scoreDifferenceComputer = Math.abs(21 - computer_score);
+    let scoreDifferenceUser = Math.abs(21 - user_score);
+    if (user_score > 21 || computer_score < 21) {
+        winner = "Computer";
+        return true;
+    }
+
+    else if (computer_score > 21 || user_score < 21) {
+        winner = "User";
+        return true;
+    }
+
+    else if (computer_score == user_score) {
+        winner = "Draw";
+        return true;
+    }
+
+    else if (scoreDifferenceComputer < scoreDifferenceUser) {
+        winner = "Computer";
+        return true;
+    }
+
+    else if (scoreDifferenceComputer > scoreDifferenceUser) {
+        winner = "User";
+        return true;
+    }
+    return false;
+}
+
+function hitCard() {
+    const newCardDiv = document.createElement("img");
+    newCardDiv.id = "hit-card" + number_of_hits;
+    
+}
+
+function announceWinner() {
+    if (winner == "Computer") console.log("Computer wins");
+}
+
 function setUpGame() {
-    setUpComputerDeck();
-    console.log(user_score);
-    console.log(computer_score);
-    setUpUserDeck();
-    hitCard();
+    if (winner == "") {
+        setUpComputerDeck();
+        console.log(user_score);
+        console.log(computer_score);
+        setUpUserDeck();
+        hitButton();
+    }
 }
 
 setUpGame();
