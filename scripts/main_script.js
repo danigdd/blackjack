@@ -1,7 +1,9 @@
 'use strict'
 let computer_score = 0;
 let user_score = 0;
-let number_of_hits = 0;
+let number_of_hits_user = 0;
+let number_of_hits_computer = 0;
+let has_game_finished = false;
 let winner = "";
 
 const list_of_cards = [
@@ -109,20 +111,7 @@ function hitButton() {
     const hitButton = document.getElementById('hit-button');
 
     hitButton.addEventListener("click", () => {
-        const newCardDiv = document.createElement("img");
-        newCardDiv.id = "hit-card" + number_of_hits;
-        const newCardDivDestination = document.querySelector(".cards-wrap-user .card-deck");
-        newCardDivDestination.appendChild(newCardDiv)
-
-        let additionalCard = chooseCard();
-        let additionalCard_file = getCardFile(additionalCard);
-        displayCard(additionalCard_file, false, "hit-card" + number_of_hits);
-
-        updateScore(additionalCard, "user");
-        const user_score_tag = document.getElementById('user-score');
-        user_score_tag.textContent = user_score;
-
-        number_of_hits++;
+        hitCard("User");
         if ( checkWinner() ) announceWinner();
     });
     return;
@@ -138,12 +127,12 @@ function standButton() {
 function checkWinner() {
     let scoreDifferenceComputer = Math.abs(21 - computer_score);
     let scoreDifferenceUser = Math.abs(21 - user_score);
-    if (user_score > 21 || computer_score < 21) {
+    if (user_score > 21 && computer_score < 21) {
         winner = "Computer";
         return true;
     }
 
-    else if (computer_score > 21 || user_score < 21) {
+    else if (computer_score > 21 && user_score < 21) {
         winner = "User";
         return true;
     }
@@ -153,22 +142,54 @@ function checkWinner() {
         return true;
     }
 
-    else if (scoreDifferenceComputer < scoreDifferenceUser) {
+    else if (scoreDifferenceComputer < scoreDifferenceUser && has_game_finished == true) {
         winner = "Computer";
         return true;
     }
 
-    else if (scoreDifferenceComputer > scoreDifferenceUser) {
+    else if (scoreDifferenceComputer > scoreDifferenceUser && has_game_finished == true) {
         winner = "User";
         return true;
     }
     return false;
 }
 
-function hitCard() {
-    const newCardDiv = document.createElement("img");
-    newCardDiv.id = "hit-card" + number_of_hits;
-    
+function hitCard(user_or_computer) {
+    if (user_or_computer == "User") {
+        const newCardDiv = document.createElement("img");
+        newCardDiv.id = "hit-user-card" + number_of_hits_user;
+        const newCardDivDestination = document.querySelector(".cards-wrap-user .card-deck");
+        newCardDivDestination.appendChild(newCardDiv);
+
+        let additionalCard = chooseCard();
+        let additionalCard_file = getCardFile(additionalCard);
+        displayCard(additionalCard_file, false, "hit-user-card" + number_of_hits_user);
+
+        updateScore(additionalCard, "user");
+        const user_score_tag = document.getElementById("user-score");
+        user_score_tag.textContent = user_score;
+
+        number_of_hits_user++;
+    }
+
+    else if (user_or_computer == "Computer") {
+        const newCardDiv = document.createElement("img");
+        newCardDiv.id = "hit-computer-card" + number_of_hits_computer;
+        const newCardDivDestination = document.querySelector(".cards-wrap-computer .card-deck");
+        newCardDivDestination.appendChild(newCardDiv);
+
+        let additionalCard = chooseCard();
+        let additionalCard_file = getCardFile(additionalCard);
+        displayCard(additionalCard_file, false, "hit-computer-card" + number_of_hits_computer);
+
+        updateScore(additionalCard, "computer");
+        const computer_score_tag = document.getElementById("computer-score");
+        computer_score_tag.textContent = computer_score;
+
+        number_of_hits_computer++;
+    }
+
+    return;
 }
 
 function announceWinner() {
