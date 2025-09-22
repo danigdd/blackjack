@@ -120,8 +120,15 @@ function hitButton() {
 function standButton() {
     const standButton = document.getElementById("stand-button");
     standButton.addEventListener("click", () => {
-
+        while (computer_score < 19) {
+            hitCard("Computer");
+            if ( checkWinner() ) announceWinner();
+        }
     });
+
+    has_game_finished = true;
+
+    return;
 }
 
 function checkWinner() {
@@ -199,10 +206,12 @@ function announceWinner() {
 function setUpGame() {
     if (winner == "") {
         setUpComputerDeck();
-        console.log(user_score);
-        console.log(computer_score);
         setUpUserDeck();
         hitButton();
+        standButton();
+
+        console.log(user_score);
+        console.log(computer_score);
     }
 }
 
