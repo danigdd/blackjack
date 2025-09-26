@@ -123,24 +123,27 @@ function hitButton() {
     return;
 }
 
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function standButton() {
     const standButton = document.getElementById("stand-button");
-    standButton.addEventListener("click", () => {
+    standButton.addEventListener("click", async () => {
+        await delay(500);
+        displayFirstDealerCard();
+        await delay(500);
         while (computer_score < 17) {
+            await delay(500); // espera 1 segon
             hitCard("Computer");
-            
         }
         console.log("exited while");
         has_game_finished = true;
-        if ( checkWinner() == true) announceWinner();
-        displayFirstDealerCard();
+        if (checkWinner() == true) announceWinner();
         
     });
-
-    
-
-    return;
 }
+
 
 function displayFirstDealerCard() {
     displayCard(first_computer_card_file, false, "first-card-computer");
