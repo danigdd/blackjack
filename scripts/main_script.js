@@ -114,48 +114,62 @@ function hitButton() {
         hitCard("User");
         if ( checkWinner() ) announceWinner();
     });
+    
     return;
 }
 
 function standButton() {
     const standButton = document.getElementById("stand-button");
     standButton.addEventListener("click", () => {
-        while (computer_score < 19) {
+        while (computer_score < 16) {
             hitCard("Computer");
-            if ( checkWinner() ) announceWinner();
+            
         }
+        console.log("exited while");
+        has_game_finished = true;
+        if ( checkWinner() == true) announceWinner();
+        
     });
 
-    has_game_finished = true;
+    
 
     return;
 }
 
 function checkWinner() {
     let scoreDifferenceComputer = Math.abs(21 - computer_score);
+    console.log(`The computer score now is ${computer_score}`)
     let scoreDifferenceUser = Math.abs(21 - user_score);
-    if (user_score > 21 && computer_score < 21) {
+    console.log(`The user score now is ${user_score}`)
+    if (user_score > 21) {
         winner = "Computer";
+        console.log("entered first");
         return true;
     }
 
-    else if (computer_score > 21 && user_score < 21) {
+    else if (computer_score > 21 && user_score < 21 && has_game_finished == true) {
         winner = "User";
+        console.log("entered second");
         return true;
     }
 
-    else if (computer_score == user_score) {
+    else if (computer_score == user_score && has_game_finished == true) {
         winner = "Draw";
+        console.log("entered third");
         return true;
     }
 
     else if (scoreDifferenceComputer < scoreDifferenceUser && has_game_finished == true) {
         winner = "Computer";
+        console.log(has_game_finished);
+        console.log("entered fourth");
         return true;
     }
 
     else if (scoreDifferenceComputer > scoreDifferenceUser && has_game_finished == true) {
         winner = "User";
+        console.log(has_game_finished);
+        console.log("entered fivth");
         return true;
     }
     return false;
@@ -201,6 +215,8 @@ function hitCard(user_or_computer) {
 
 function announceWinner() {
     if (winner == "Computer") console.log("Computer wins");
+    else if (winner == "User") console.log("User wins");
+    else console.log("Draw");
 }
 
 function setUpGame() {
