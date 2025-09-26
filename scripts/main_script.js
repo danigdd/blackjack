@@ -6,6 +6,7 @@ let number_of_hits_computer = 0;
 let has_game_finished = false;
 let winner = "";
 
+
 const list_of_cards = [
   "AH","2H","3H","4H","5H","6H","7H","8H","9H","10H","JH","QH","KH",
   "AD","2D","3D","4D","5D","6D","7D","8D","9D","10D","JD","QD","KD",
@@ -14,6 +15,11 @@ const list_of_cards = [
 ];
 
 let already_seen_cards = [];
+
+let first_computer_card = chooseCard();
+let first_computer_card_file = getCardFile(first_computer_card);
+displayCard(first_computer_card_file, true, "first-card-computer");
+updateScore(first_computer_card, "computer");
 
 function chooseCard() {
     let card_chosen;
@@ -52,9 +58,11 @@ function updateScore(card, dest) {
         case "user":
             user_score += +value_of_card;
             break;
+
+        default:
+            break;
         
-            default:
-                break;
+        
     }
     
     return;
@@ -72,10 +80,7 @@ function getValueFromCard(card) {
 }
 
 function setUpComputerDeck() {
-    let first_computer_card = chooseCard();
-    let first_computer_card_file = getCardFile(first_computer_card);
-    displayCard(first_computer_card_file, true, "first-card-computer");
-    updateScore(first_computer_card, "computer");
+
 
     let second_computer_card = chooseCard();
     let second_computer_card_file = getCardFile(second_computer_card);
@@ -121,13 +126,14 @@ function hitButton() {
 function standButton() {
     const standButton = document.getElementById("stand-button");
     standButton.addEventListener("click", () => {
-        while (computer_score < 16) {
+        while (computer_score < 17) {
             hitCard("Computer");
             
         }
         console.log("exited while");
         has_game_finished = true;
         if ( checkWinner() == true) announceWinner();
+        displayFirstDealerCard();
         
     });
 
@@ -136,6 +142,11 @@ function standButton() {
     return;
 }
 
+function displayFirstDealerCard() {
+    displayCard(first_computer_card_file, false, "first-card-computer");
+    const computer_score_tag = document.getElementById("computer-score");
+    computer_score_tag.textContent = computer_score;
+}
 function checkWinner() {
     let scoreDifferenceComputer = Math.abs(21 - computer_score);
     console.log(`The computer score now is ${computer_score}`)
@@ -214,13 +225,25 @@ function hitCard(user_or_computer) {
 }
 
 function announceWinner() {
-    if (winner == "Computer") console.log("Computer wins");
-    else if (winner == "User") console.log("User wins");
-    else console.log("Draw");
+    if (winner == "Computer") {
+        const computer_etiquette = document.getElementById("computer-etiquette");
+        computer_etiquette.textContent = "COMPUTER WINS!";
+    }
+    else if (winner == "User") {
+        const user_etiquette = document.getElementById("user-etiquette");
+        user_etiquette.textContent = "USER WINS!";
+    }
+    else {
+        const computer_etiquette = document.getElementById("computer-etiquette");
+        computer_etiquette.textContent = "DRAW";
+        const user_etiquette = document.getElementById("user-etiquette");
+        user_etiquette.textContent = "DRAW"; 
+    }
 }
 
 function setUpGame() {
     if (winner == "") {
+        
         setUpComputerDeck();
         setUpUserDeck();
         hitButton();
