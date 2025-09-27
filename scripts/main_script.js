@@ -134,10 +134,9 @@ function standButton() {
         displayFirstDealerCard();
         await delay(500);
         while (computer_score < 17) {
-            await delay(500); // espera 1 segon
+            await delay(500); 
             hitCard("Computer");
         }
-        console.log("exited while");
         has_game_finished = true;
         if (checkWinner() == true) announceWinner();
         
@@ -152,38 +151,35 @@ function displayFirstDealerCard() {
 }
 function checkWinner() {
     let scoreDifferenceComputer = Math.abs(21 - computer_score);
-    console.log(`The computer score now is ${computer_score}`)
     let scoreDifferenceUser = Math.abs(21 - user_score);
-    console.log(`The user score now is ${user_score}`)
     if (user_score > 21) {
         winner = "Computer";
-        console.log("entered first");
         return true;
     }
 
     else if (computer_score > 21 && user_score < 21 && has_game_finished == true) {
         winner = "User";
-        console.log("entered second");
+
         return true;
     }
 
     else if (computer_score == user_score && has_game_finished == true) {
         winner = "Draw";
-        console.log("entered third");
+
         return true;
     }
 
     else if (scoreDifferenceComputer < scoreDifferenceUser && has_game_finished == true) {
         winner = "Computer";
-        console.log(has_game_finished);
-        console.log("entered fourth");
+
+
         return true;
     }
 
     else if (scoreDifferenceComputer > scoreDifferenceUser && has_game_finished == true) {
         winner = "User";
-        console.log(has_game_finished);
-        console.log("entered fivth");
+
+
         return true;
     }
     return false;
@@ -246,14 +242,10 @@ function announceWinner() {
 
 function setUpGame() {
     if (winner == "") {
-        
         setUpComputerDeck();
         setUpUserDeck();
         hitButton();
         standButton();
-
-        console.log(user_score);
-        console.log(computer_score);
     }
 }
 
